@@ -29,3 +29,14 @@ body {
 #start:active {
   background-color: green;
 }
+
+.gameSelection {
+  width: 200px;
+  
+}
+
+.gameSelection {
+  width: 200px;
+  position: relative;
+  left: 35%;
+}

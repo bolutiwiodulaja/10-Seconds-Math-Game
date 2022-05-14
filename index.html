@@ -12,21 +12,38 @@
   <body>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-xl-12 mx-md-auto">
+        <div class="col-xl-12">
           <div class="row">
-        <div class="col-xs-12">
-          <h1 class="heading">10 Sec Math Game  <button id="start" type="btn">START</button></h1>
-          <p><span id="timer">10 </span>(seconds to answer)</p>
-          <p>SCORE:<span id="tally">0 </span></p>
-          <div id="equation">
-          </div>
-        </div>
-        <div class="col-xs-12">
-          
-        <input id="answer" type="number" placehodler="type answer"/>
-        <button id="submit" type="btn">Submit</button>
-          
-        </div>
+            <div class="col-xs-12">
+              <p>High Score: <span id="highScore">0</span></p>
+              <h1 class="heading">10 Sec Math Game  <button id="start" type="btn">START</button></h1>
+              <p><span id="timer">10 </span>(seconds to answer)</p>
+              <p>SCORE: <span id="tally">0 </span></p>
+              <div id="equation">
+              </div>
+            </div>
+            <div class="col-xs-12">
+              <input id="answer" type="number" placehodler="type answer"/>
+              <button id="submit" type="btn">Submit</button>
+            </div>
+            <div class="col-xs-12 gameSelection">
+              <div class="col-xs-3">
+                <p>+ <input id="addition"  type="radio"/></p>
+              </div>
+              <div class="col-xs-3">
+                <p>* <input id="multiplication"  type="radio"/></p>
+              </div>
+              <div class="col-xs-3">
+                <p>- <input id="subtraction"  type="radio"/></p>
+              </div>
+              <div class="col-xs-3">
+                <p>÷ <input id="division"  type="radio"/></p>
+              </div>
+              <div class="slide">
+                <p>SET LIMIT: <span id="sliderTally"></span></p>
+                <input id="slider" type="range" min="10" value="10" max="50" step="10">
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -5,32 +5,84 @@ var submit = document.getElementById('submit');
 var timerSpan = document.getElementById('timer');
 var start = document.getElementById('start');
 var restart = document.getElementById('restart');
-var p = document.getElementsByTagName('p');
+var addition = document.getElementById('addition');
+var multiplication = document.getElementById('multiplication');
+var subtraction = document.getElementById('subtraction');
+var division = document.getElementById('division');
+var slider = document.getElementById('slider');
+var sliderTally = document.getElementById('sliderTally');
+var highScore = document.getElementById('highScore');
 
   var runMathGame = function() { 
   
   var answer;
   var seconds = 10;
   var score = 0;
+  var currentHighScore = 0;
 
-   var equationGenerator = function () { 
-   var arr = [];
-   var randomNum1 = Math.floor(Math.random() * 10);
-   var randomNum2 = Math.floor(Math.random() * 10);
+  var updateSliderInput = function() {
+    sliderTally.innerHTML = slider.value;
+  }
+  slider.addEventListener('input', updateSliderInput);
+  updateSliderInput();
 
-   arr.push(randomNum1, randomNum2);
-   answer = arr[0] + arr[1];
+  var equationGenerator = function () { 
+    var arr = [];
+    var randomNum1 = Math.floor(Math.random() * slider.value);
+    var randomNum2 = Math.floor(Math.random() * slider.value);
 
-   var p = document.createElement("p"); 
-   var askEquation = randomNum1 + ' + ' + randomNum2;
-   p.textContent = askEquation;
-   equation.appendChild(p);
-   return equation;
-   }
+    arr.push(randomNum1, randomNum2);
+    var p = document.createElement("p");
+
+    if(addition.checked === true) {
+      answer = arr[0] + arr[1];
+      var askEquation = randomNum1 + ' + ' + randomNum2;
+      p.textContent = askEquation;
+      equation.appendChild(p);
+      }
+      
+
+    if(multiplication.checked === true) {
+      answer = arr[0] * arr[1];
+      var askEquation = randomNum1 + ' * ' + randomNum2;
+      p.textContent = askEquation;
+      equation.appendChild(p);
+    }
+
+    if(subtraction.checked === true) {
+      answer = arr[0] - arr[1];
+      var askEquation = randomNum1 + ' - ' + randomNum2;
+      p.textContent = askEquation;
+      equation.appendChild(p);
+    }
+    
+    if(division.checked === true) {
+      answer = arr[0] / arr[1];
+      var askEquation = randomNum1 + ' / ' + randomNum2;
+      p.textContent = askEquation;
+      equation.appendChild(p);
+    }
+    return equation;
+  }
 
    var scoreUpdate = function() {
      score++;
      tally.innerHTML = score;
+   }
+
+   var input = function () {
+    while (seconds > 0){
+      if (playerInput.value == Math.abs(Math.round(answer))) {
+        equation.innerHTML = '';
+        playerInput.value = '';
+        scoreUpdate();
+        equationGenerator();
+        seconds++;  
+        break;
+      } else {
+        break;
+      }
+    }
    }
 
    var playGame = function(){
@@ -41,30 +93,27 @@ var p = document.getElementsByTagName('p');
           if(seconds === 0){
             clearInterval(startTimer);
             seconds = 10;
-            score = 0;
             tally.innerHTML = 0;
             equation.innerHTML = '';
+            if(currentHighScore < score) {
+              currentHighScore = score;
+              highScore.innerHTML = currentHighScore;
+            }
           }
         }, 1000);
       });
       
       submit.addEventListener('click', function() {
-        while (seconds > 0){
-          if (playerInput.value == answer) {
-            equation.innerHTML = '';
-            playerInput.value = '';
-            scoreUpdate();
-            equationGenerator();
-            seconds++;  
-            break;
-          } else {
-            break;
-          }
-        }
+        input();
       });
 
+      window.addEventListener('keyup', function(e) {
+        if(e.key === 'Enter') {
+          input();
+        }
+      })
    }
-   playGame();   
+   playGame(); 
   }
 
   
