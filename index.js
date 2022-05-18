@@ -50,15 +50,33 @@ var highScore = document.getElementById('highScore');
     }
 
     if(subtraction.checked === true) {
-      answer = arr[0] - arr[1];
-      var askEquation = randomNum1 + ' - ' + randomNum2;
+      if(arr[0] > arr[1]){
+        answer = arr[0] - arr[1];
+        var askEquation = randomNum1 + ' - ' + randomNum2;
+      } else {
+        answer = arr[1] - arr[0];
+        var askEquation = randomNum2 + ' - ' + randomNum1;
+      }
       p.textContent = askEquation;
       equation.appendChild(p);
     }
     
     if(division.checked === true) {
-      answer = arr[0] / arr[1];
-      var askEquation = randomNum1 + ' / ' + randomNum2;
+      if(arr[1] !== 0 && arr[0] > arr[1] && (arr[0] % arr[1]) === 0){
+        answer = arr[0] / arr[1];
+        var askEquation = randomNum1 + ' / ' + randomNum2;
+      } else if (arr[0] !== 0 && arr[1] > arr[0] && (arr[1] % arr[0]) === 0){
+        answer = arr[1] / arr[0];
+        var askEquation = randomNum2 + ' / ' + randomNum1;
+      } else if (arr[0] === 0) {
+        answer = arr[0] / arr[1];
+        var askEquation = randomNum1 + ' / ' + randomNum2;
+      } else if (arr[1] === 0) {
+        answer = arr[1] / arr[0];
+        var askEquation = randomNum2 + ' / ' + randomNum1;
+      } else {
+        equationGenerator ();
+      }
       p.textContent = askEquation;
       equation.appendChild(p);
     }
@@ -84,6 +102,16 @@ var highScore = document.getElementById('highScore');
       }
     }
    }
+         
+      submit.addEventListener('click', function() {
+        input();
+      });
+
+      window.addEventListener('keyup', function(e) {
+        if(e.key === 'Enter') {
+          input();
+        }
+      })
 
    var playGame = function(){
       start.addEventListener('click', function() {
@@ -102,16 +130,6 @@ var highScore = document.getElementById('highScore');
           }
         }, 1000);
       });
-      
-      submit.addEventListener('click', function() {
-        input();
-      });
-
-      window.addEventListener('keyup', function(e) {
-        if(e.key === 'Enter') {
-          input();
-        }
-      })
    }
    playGame(); 
   }
